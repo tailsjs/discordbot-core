@@ -15,10 +15,10 @@ module.exports = {
             ``,
             `Команды для создателя:`,
             commands.filter(command => command.rights == 3).map(command => `${config.prefix}${command.help} - ${command.description}`).join("\n") || "Нет команд для создателя.",
-        ].join("\n")
-        message.ok(result)
+        ].join("\n");
+        message.ok(result);
     },
     rights: 0,
     help: "помощь",
     description: "команды."
-}
+};

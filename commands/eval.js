@@ -24,9 +24,9 @@ module.exports = {
     }
         catch (e) {
             message.error(`Ошибка!\n\n\`\`\`${e}\`\`\``);
-        }
+        };
     },
     rights: 3,
     help: "евал [код]",
     description: "выполнить код."
-}
+};
