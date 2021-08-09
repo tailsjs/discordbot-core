@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": "358212650326425601",
+      "userId": 1,
+      "nick": "тейлс",
+      "rights": 3,
+      "warns": 0,
+      "ban": {
+        "isBanned": false,
+        "reason": ""
+      }
+    },
+    {
+      "id": "874247498544336956",
+      "userId": 2,
+      "nick": "чел ты",
+      "rights": 0,
+      "warns": 0,
+      "ban": {
+        "isBanned": false,
+        "reason": ""
+      }
+    }
+  ]
+}

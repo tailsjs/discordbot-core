@@ -1,0 +1,29 @@
+{
+  "name": "discordbot-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "fs": "0.0.1-security",
+    "kind-of": "^6.0.3",
+    "lowdb": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "discordbot",
+    "bot",
+    "bot core",
+    "core",
+    "js",
+    "javascript",
+    "node",
+    "nodejs"
+  ],
+  "author": "tailsjs",
+  "license": "ISC"
+}

@@ -1,0 +1,19 @@
+{
+    "botName": "",
+    "botToken": "",
+    "prefix": "!",
+    "rpc": {
+        "enabled": true,
+        "texts": [
+            "Я основан на ядре discordbot-core от tailsjs!"
+        ],
+        "type": "PLAYING",
+        "twitchUrl": "https://www.twitch.tv/lil_tailsjs",
+        "changeIntervalS": 60,
+        "status": "online",
+        "_comment": "type может быть только PLAYING (играет), WATCHING (смотит), STREAMING (стримит) и LISTENING (слушает)"
+    },
+    "ownerId": "0",
+    "maxWarns": 3,
+    "errorLogging": false
+}
