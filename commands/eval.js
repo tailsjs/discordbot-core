@@ -2,7 +2,7 @@ const kindOf = require('kind-of');
 
 module.exports = {
     regexp: /^(а?евал+|a?eval+)/i,
-    function: async function(message, { command, db, config, commands }){
+    function: async function(message, { command, db, config, commands, fetchUser, logger, random, fetch }){
         const form = message.text.split(' ').slice(0, 1).join(' ');
         let code = message.text.split(' ').slice(1).join(' ');
 

@@ -6,16 +6,20 @@ const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync('db.json');
 const db = low(adapter);
 const fs = require("fs");
+const fetch = require("node-fetch")
 
 db.defaults({ users: [] }).write();
 
-db.getUser = async(ID, message) => {
-    let user = db.get('users').find({ id: ID }).value();
+db.getUser = async(ID) => {
+    if(isNaN(ID))return logger('ID can be only numberic!', 4)
+    let user = db.get('users').find({ id: Number(ID) }).value();
     if(!user){
+        const discordUser = await fetchUser(ID)
         db.get('users').push({
-            id: ID,
+            id: Number(ID),
             userId: db.get('users').value().length + 1,
-            nick: message.author.username,
+            nick: discordUser.username,
+            discriminator: discordUser.discriminator,
             rights: 0,
             warns: 0,
             ban: {
@@ -49,11 +53,11 @@ client.once("ready", async() => {
 });
 
 client.once("reconnecting", () => {
-    console.log("Reconnecting!");
+    logger('Переподключение...', 1)
 });
   
 client.once("disconnect", () => {
-    console.log("Disconnect!");
+    logger('Отключен!', 2)
 });
 
 client.on("message", async message => {
@@ -80,7 +84,7 @@ client.on("message", async message => {
     if(!command)return message.error("Такой команды нет!");
     if(message.user.rights < command.rights)return message.warn(`Команда доступна только ${["Пользователям", "Випам", "Админам", "Создателю"][command.rights]} ${command.rights > 0 && command.rights !== 3 ? "или выше." : ""}`);
     try{
-        await command.function(message, { command, db, config, commands });
+        await command.function(message, { command, db, config, commands, fetchUser, logger, random, fetch });
     }catch(e){
         logger(`Ошибка: ${e}`, 2);
         if(config.errorLogging){
@@ -91,16 +95,27 @@ client.on("message", async message => {
 
 client.login(config.botToken);
 
-function logger(text, value = 0, crashAfterError = false){
-    const sub = ["GOOD", "WARN", "ERROR", "MESSAGE"];
-    if(value > sub.length || isNaN(value))console.log(`[ LOGGER ERROR ] >> Значение должно быть от 0 до ${sub.length - 1}!`);
-    console.log(`[ ${sub[value]} ] >> ${text}`);
-    if(crashAfterError && value == 2)return process.exit(-1);
-};
-function random(min, max) {return Math.round(Math.random() * (max - min)) + min};
 process.on("uncaughtException", e => {
     logger(e, 2);
 });
 process.on("unhandledRejection", e => {
     logger(e, 2);
 });
+
+function logger(text, value = 0, crashAfterError = false){
+    const sub = ["GOOD", "WARN", "ERROR", "MESSAGE", "DB ERROR"];
+    if(value > sub.length || isNaN(value))return console.log(`[ LOGGER ERROR ] >> Значение должно быть от 0 до ${sub.length - 1}!`);
+    console.log(`[ ${sub[value]} ] >> ${text}`);
+    if(crashAfterError && value == 2)return process.exit(-1);
+};
+function random(min, max) {return Math.round(Math.random() * (max - min)) + min};
+async function fetchUser(id){
+    if(typeof id != "string")throw new Error('[ FETCHUSER ERROR ] >> Пожалуйста, отправляйте ID с типом String (проще говоря String(ID)), ибо дискорд странный')
+    const response = await fetch(`https://discord.com/api/v9/users/${id}`, {
+        headers: {
+            Authorization: `Bot ${config.botToken}`
+        }
+    })
+    if (!response.ok) throw new Error(`[ FETCHUSER ERROR ] >> Код ошибки: ${response.status}`)
+    return response.json()
+}
