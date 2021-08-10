@@ -5,5 +5,5 @@
 
 ## [Установка, настройка.](https://github.com/tailsjs/discordbot-core/blob/master/docs/Installing.md)
 ## [Разработка команд.](https://github.com/tailsjs/discordbot-core/blob/master/docs/creatingCommands.md)
-## [Использование базы жанных.](https://github.com/tailsjs/discordbot-core/blob/master/docs/usingDataBase.md)
+## [Использование базы данных.](https://github.com/tailsjs/discordbot-core/blob/master/docs/usingDataBase.md)
 ## Скоро новые гайды!
