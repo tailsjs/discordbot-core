@@ -73,7 +73,7 @@ const users = db.get("users").value();
 ```
 Затем, вы можете использовать эту переменную для любых ваших затей.
 ```js
-message.send(users[0].nick);
+message.ok(users[0].nick);
 ```
 #
 ```js
