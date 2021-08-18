@@ -76,7 +76,7 @@ client.on("message", async message => {
     message.warn = (text = "", params = {}) => {
         return message.answer(`⚠️ >> ${text}`, params);
     };
-    if(message.user.ban.isBanned)return message.error(`Вы заблокированы.\nПричина: ${message.user.ban.reason}`);
+    if(message.user.ban.isBanned)return message.error(`Вы заблокированы.\nПричина: ${message.user.ban.reason == "" ? "Нарушение правил." : message.user.ban.reason}`);
     if(!command)return message.error("Такой команды нет!");
     if(message.user.rights < command.rights)return message.warn(`Команда доступна только ${["Пользователям", "Випам", "Админам", "Создателю"][command.rights]} ${command.rights > 0 && command.rights !== 3 ? "или выше." : ""}`);
     try{
